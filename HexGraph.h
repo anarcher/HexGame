@@ -13,7 +13,7 @@ class HexGraph : public Graph {
 public:
 
     enum HexCol {
-        BLANK, WHITE, BLACK
+        BLANK = 0, COMPUTER = 1, HUMAN = 2
     };
 
     HexCol get_hex_colour(int vertex);

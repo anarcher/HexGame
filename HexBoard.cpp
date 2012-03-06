@@ -50,11 +50,11 @@ void HexBoard::putPiece(int x, int y) {
     if (node > (SIZE * SIZE) || node < 1) {
         throw 1;
     }
-    if (G.get_hex_colour(node) != BLANK) {
+    if (G.get_hex_colour(node) != HexGraph::BLANK) {
         throw 2;
     }
 
-    G.set_hex_colour(getNode(x, y), HUMAN);
+    G.set_hex_colour(getNode(x, y), HexGraph::HUMAN);
     turns++;
 }
 
@@ -70,13 +70,13 @@ void HexBoard::print() {
     // Print the Board
     for (int i = 1; i <= (SIZE * SIZE); i++) {
         switch (G.get_hex_colour(i)) {
-            case BLANK:
+            case HexGraph::BLANK:
                 cout << " E ";
                 break;
-            case HUMAN:
+            case HexGraph::HUMAN:
                 cout << " B ";
                 break;
-            case COMPUTER:
+            case HexGraph::COMPUTER:
                 cout << " W ";
                 break;
         }
@@ -96,38 +96,38 @@ HexGraph::HexCol HexBoard::hasWon() {
     // If there haven't been 11 turns, then there's no need to look
     if (turns >= SIZE) {
 
-        // Check if Black has won (Top to Bottom)
+        // Check if HUMAN has won (Top to Bottom)
         for (int i = 1; i <= SIZE; i++) {
-            if (G.get_hex_colour(i) == HUMAN) {
-                G.dijkstra_run(i, HUMAN, true);
+            if (G.get_hex_colour(i) == HexGraph::HUMAN) {
+                G.dijkstra_run(i, HexGraph::HUMAN, true);
                 for (int j = getNode(SIZE, 1); j <= getNode(SIZE, SIZE); j++) {
                     if (G.get_parent(j) != NIL) {
-                        return HUMAN;
+                        return HexGraph::HUMAN;
                     }
                 }
             }
         }
 
-        // Check if White has won (Left to Right)
+        // Check if COMPUTER has won (Left to Right)
         int k = 1;
         for (int i = 1; i <= (SIZE * SIZE) - (SIZE - 1); i = getNode(++k, 1)) {
-            if (G.get_hex_colour(i) == COMPUTER) {
-                G.dijkstra_run(i, COMPUTER, true);
+            if (G.get_hex_colour(i) == HexGraph::COMPUTER) {
+                G.dijkstra_run(i, HexGraph::COMPUTER, true);
                 for (int j = getNode(1, SIZE); j <= getNode(SIZE, SIZE); j = getNode(getRow(j) + 1, SIZE)) {
                     if (G.get_parent(j) != NIL) {
-                        return COMPUTER;
+                        return HexGraph::COMPUTER;
                     }
                 }
             }
         }
     }
-    return BLANK;
+    return HexGraph::BLANK;
 }
 
 /* Resets the board to a blank state */
 void HexBoard::reset() {
     for (int i = 1; i <= (SIZE * SIZE); i++) {
-        G.set_hex_colour(i, BLANK);
+        G.set_hex_colour(i, HexGraph::BLANK);
     }
     G.reset_weight();
     turns = 0;
@@ -135,12 +135,12 @@ void HexBoard::reset() {
 
 bool HexBoard::isFinished() {
     HexGraph::HexCol won = this->hasWon();
-    return won == BLANK ? false : true;
+    return won == HexGraph::BLANK ? false : true;
 }
 
 HexBoard HexBoard::makemove(int move) {
-    HexBoard HB(this->G,this->turns);
-    HB.G.set_hex_colour(move, COMPUTER);
+    HexBoard HB(this->G, this->turns);
+    HB.G.set_hex_colour(move, HexGraph::COMPUTER);
     HB.turns++;
     return HB;
 }
@@ -148,7 +148,7 @@ HexBoard HexBoard::makemove(int move) {
 vector<int> HexBoard::getMoves() {
     vector<int> moves;
     for (int i = 1; i <= SIZE; i++) {
-        if (G.get_hex_colour(i) == BLANK) {
+        if (G.get_hex_colour(i) == HexGraph::BLANK) {
             moves.push_back(i);
         }
     }

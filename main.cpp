@@ -34,11 +34,11 @@ int main() {
 
         // Check if there's a winner and deal with it.
         won = HB.hasWon();
-        if (won == HexGraph::BLACK) {
+        if (won == HexGraph::HUMAN) {
             cout << "You have won.\n Play again? (y/n)" << endl;
             cin >> yn;
             if (!restart(yn)) break;
-        } else if (won == HexGraph::WHITE) {
+        } else if (won == HexGraph::COMPUTER) {
             cout << "You have lost.\n Play again? (y/n)" << endl;
             cin >> yn;
             if (!restart(yn)) break;

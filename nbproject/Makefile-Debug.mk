@@ -37,6 +37,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Graph.o \
 	${OBJECTDIR}/HexGraph.o \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/NegaMax.o \
 	${OBJECTDIR}/HexBoard.o
 
 
@@ -78,6 +79,11 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/NegaMax.o: NegaMax.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/NegaMax.o NegaMax.cpp
 
 ${OBJECTDIR}/HexBoard.o: HexBoard.cpp 
 	${MKDIR} -p ${OBJECTDIR}

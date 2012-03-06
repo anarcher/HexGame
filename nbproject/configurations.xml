@@ -18,6 +18,8 @@
       <itemPath>HexBoard.h</itemPath>
       <itemPath>HexGraph.cpp</itemPath>
       <itemPath>HexGraph.h</itemPath>
+      <itemPath>NegaMax.cpp</itemPath>
+      <itemPath>NegaMax.h</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"

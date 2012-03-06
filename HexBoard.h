@@ -8,6 +8,7 @@
 #ifndef HEXBOARD_H
 #define	HEXBOARD_H
 #include "HexGraph.h"
+
 const int SIZE = 11;
 
 class HexBoard {
@@ -28,9 +29,6 @@ public:
 private:
     HexGraph G;
     int turns;
-    typedef HexGraph::WHITE COMPUTER;
-    typedef HexGraph::BLACK HUMAN;
-    typedef HexGraph::BLANK BLANK;
 
     inline int getNode(int row, int col);
     inline int getCol(int x);

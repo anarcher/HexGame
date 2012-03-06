@@ -46,6 +46,6 @@ pair<double, int> NegaMax::nm_compute(HexBoard board, int currentDepth, double a
 }
 
 int NegaMax::getBestMove(HexBoard board, int maxDepth) {
-    pair<double, int> move = nm_compute(board, maxDepth, 0, NEGINF, INF);
+    pair<double, int> move = nm_compute(board, maxDepth, NEGINF, INF);
     return move.second;
 }
