@@ -13,20 +13,28 @@ const int SIZE = 11;
 class HexBoard {
 public:
     HexBoard();
+
+    HexBoard(HexGraph G, int turns) : G(G), turns(turns) {
+    };
     void print();
     void putPiece(int x, int y);
     HexGraph::HexCol hasWon();
     void reset();
     void playNext();
+
+    bool isFinished();
+    HexBoard makemove(int move);
+    std::vector<int> getMoves();
 private:
     HexGraph G;
+    int turns;
+    typedef HexGraph::WHITE COMPUTER;
+    typedef HexGraph::BLACK HUMAN;
+    typedef HexGraph::BLANK BLANK;
+
     inline int getNode(int row, int col);
     inline int getCol(int x);
     inline int getRow(int x);
-
-    int extendPath(HexGraph::HexCol c, std::list<int> &path);
-
-    int turns;
 };
 
 #endif	/* HEXBOARD_H */
