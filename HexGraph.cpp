@@ -15,7 +15,7 @@ void HexGraph::dijkstra_run(int source, HexCol c, bool yesCol) {
     set_vertex(source, 0, NIL);
     PDeque Q;
 
-    yesCol ? Q = Graph::make_queue() : Q = make_queue(c);
+    Q = make_queue(c, !yesCol);
 
     make_heap(Q.begin(), Q.end(), Pcomp());
 
@@ -66,12 +66,14 @@ void HexGraph::reset_weight() {
 }
 
 /* Overloaded function which makes a queue of distance->destination edge pairs.
- * It skips any colours mentioned in the parameters.
+ * It skips any colours mentioned in the parameters if skip is true; else it 
+ * only adds edges of colour c.
  */
-PDeque HexGraph::make_queue(HexCol c) {
+PDeque HexGraph::make_queue(HexCol c, bool skip) {
     PDeque Q;
     for (AdjMap::iterator i = adj.begin(); i != adj.end(); ++i) {
-        if (get_hex_colour(i->first) != c) {
+        HexCol col = get_hex_colour(i->first);
+        if ((skip && col != c) || (!skip && col == c)) {
             Q.push_back(make_pair(&(prop[i->first].dist), i->first));
         }
     }

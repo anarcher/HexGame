@@ -9,15 +9,6 @@
 #include <algorithm>
 using namespace std;
 
-NegaMax::NegaMax() {
-}
-
-NegaMax::NegaMax(const NegaMax& orig) {
-}
-
-NegaMax::~NegaMax() {
-}
-
 pair<double, int> NegaMax::nm_compute(HexBoard board, int currentDepth, double alpha, double beta) {
     if (board.isFinished() || currentDepth <= 0) {
         //  return make_pair(eval(),0); //TODO return eval function result.
@@ -30,13 +21,14 @@ pair<double, int> NegaMax::nm_compute(HexBoard board, int currentDepth, double a
     for (vector<int>::iterator i = moves.begin(); i != moves.end(); i++) {
         HexBoard newBoard = board.makemove(*i);
 
-        pair<double, int> result = nm_compute(newBoard, currentDepth - 1, -beta, -max(alpha, bestScore));
-        double currentScore = -result.first;
+        pair<double, int> result = nm_compute(newBoard, currentDepth - 1, -beta, -(max(alpha, bestScore)));
+        double currentScore = -(result.first);
 
         if (currentScore > bestScore) {
             bestScore = currentScore;
             bestMove = *i;
 
+            // AB-Pruning
             if (bestScore >= beta) {
                 return make_pair(bestScore, bestMove);
             }

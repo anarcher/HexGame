@@ -14,8 +14,6 @@ static const double NEGINF = -INF;
 class NegaMax {
 public:
     NegaMax();
-    NegaMax(const NegaMax& orig);
-    virtual ~NegaMax();
     std::pair<double,int> nm_compute(HexBoard board, int currentDepth, double alpha, double beta);
     int getBestMove(HexBoard board, int maxDepth);
 private:

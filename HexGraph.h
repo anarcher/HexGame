@@ -22,7 +22,6 @@ public:
     void reset_weight();
 
     void dijkstra_run(int source, HexCol c, bool yesCol);
-    PDeque make_queue(HexCol c);
 private:
 
     typedef struct propo {
@@ -31,6 +30,8 @@ private:
 
     typedef std::map<int, property> PropMap;
     PropMap propC;
+    
+    PDeque make_queue(HexCol c, bool skip);
 };
 
 #endif	/* HEXGRAPH_H */
