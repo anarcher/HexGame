@@ -25,6 +25,7 @@ HexBoard::HexBoard() {
         }
     }
     turns = 0;
+    Player = HexGraph::HUMAN;
 }
 
 /* Returns the internal node number for a node at a given coordinate */
@@ -130,7 +131,6 @@ void HexBoard::reset() {
     for (int i = 1; i <= (SIZE * SIZE); i++) {
         G.set_hex_colour(i, HexGraph::BLANK);
     }
-    G.reset_weight();
     turns = 0;
 }
 
