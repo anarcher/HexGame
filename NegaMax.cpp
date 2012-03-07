@@ -9,9 +9,12 @@
 #include <algorithm>
 using namespace std;
 
+/* Returns a pair (best score, best move) using AB-pruned negamax.
+ * Takes a board, maximum depth, and alpha and beta values as parameters.
+ *  */
 pair<double, int> NegaMax::nm_compute(HexBoard board, int currentDepth, double alpha, double beta) {
     if (board.isFinished() || currentDepth <= 0) {
-        //  return make_pair(eval(),0); //TODO return eval function result.
+        //  return make_pair(board.eval(),0); //TODO return eval function result.
     }
 
     int bestMove = 0;
@@ -37,6 +40,7 @@ pair<double, int> NegaMax::nm_compute(HexBoard board, int currentDepth, double a
     return make_pair(bestScore, bestMove);
 }
 
+/* Returns the best move for a given depth. */
 int NegaMax::getBestMove(HexBoard board, int maxDepth) {
     pair<double, int> move = nm_compute(board, maxDepth, NEGINF, INF);
     return move.second;

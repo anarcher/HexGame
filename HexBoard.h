@@ -28,6 +28,7 @@ public:
     bool isFinished();
     HexBoard makemove(int move, HexGraph::HexCol Player);
     std::vector<int> getMoves();
+    double eval();
 private:
     HexGraph G;
     HexGraph::HexCol Player;

@@ -94,8 +94,8 @@ void HexBoard::print() {
 /* Returns the winner, or blank when there is no winner */
 HexGraph::HexCol HexBoard::hasWon() {
 
-    // If there haven't been 11 turns, then there's no need to look
-    if (turns >= SIZE) {
+    // If there haven't been 11 turns EACH, then there's no need to look
+    if (turns >= SIZE * 2) {
 
         // Check if HUMAN has won (Top to Bottom)
         for (int i = 1; i <= SIZE; i++) {
@@ -134,20 +134,23 @@ void HexBoard::reset() {
     turns = 0;
 }
 
+/* Returns true if the game has finished */
 bool HexBoard::isFinished() {
     return (hasWon() != HexGraph::BLANK);
 }
 
+/* Returns a new Board with the specified move played. */
 HexBoard HexBoard::makemove(int move) {
-    HexBoard HB(this->G, this->turns++);
+    HexBoard HB(this->G, this->turns + 1);
     HB.G.set_hex_colour(move, Player);
     HB.switchPlayer();
     return HB;
 }
 
+/* Returns a vector of all possible moves. */
 vector<int> HexBoard::getMoves() {
     vector<int> moves;
-    for (int i = 1; i <= SIZE; i++) {
+    for (int i = 1; i <= (SIZE * SIZE); i++) {
         if (G.get_hex_colour(i) == HexGraph::BLANK) {
             moves.push_back(i);
         }
@@ -155,6 +158,12 @@ vector<int> HexBoard::getMoves() {
     return moves;
 }
 
+/* Switches the current player. */
 void HexBoard::switchPlayer() {
     Player = (Player == HexGraph::HUMAN ? HexGraph::COMPUTER : HexGraph::HUMAN);
+}
+
+/*Returns a number evaluating the current board. */
+double HexBoard::eval() {
+    // Magic Code goes here!
 }
