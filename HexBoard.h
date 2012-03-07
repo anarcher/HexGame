@@ -16,8 +16,7 @@ public:
 
     HexBoard();
 
-    HexBoard(HexGraph G, int turns) : G(G), turns(turns) {
-    };
+    HexBoard(HexGraph &G, int turns);
     void print();
     void putPiece(int x, int y);
     HexGraph::HexCol hasWon();

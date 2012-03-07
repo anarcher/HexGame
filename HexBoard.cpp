@@ -28,6 +28,11 @@ HexBoard::HexBoard() {
     Player = HexGraph::HUMAN;
 }
 
+HexBoard::HexBoard(HexGraph &G, int turns){
+    this->G = G;
+    this->turns = turns;
+}
+
 /* Returns the internal node number for a node at a given coordinate */
 int HexBoard::getNode(int row, int col) {
     return ((SIZE * (row - 1)) + col);
