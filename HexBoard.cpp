@@ -25,12 +25,13 @@ HexBoard::HexBoard() {
         }
     }
     turns = 0;
-    Player = HexGraph::HUMAN;
+    Player = State::HUMAN;
 }
 
-HexBoard::HexBoard(HexGraph &G, int turns){
+HexBoard::HexBoard(HexGraph &G, int turns) {
     this->G = G;
     this->turns = turns;
+    this->S = S;
 }
 
 /* Returns the internal node number for a node at a given coordinate */
@@ -56,11 +57,11 @@ void HexBoard::putPiece(int x, int y) {
     if (node > (SIZE * SIZE) || node < 1) {
         throw 1;
     }
-    if (G.get_hex_colour(node) != HexGraph::BLANK) {
+    if (S.get_hex_colour(node) != State::BLANK) {
         throw 2;
     }
 
-    G.set_hex_colour(getNode(x, y), HexGraph::HUMAN);
+    S.set_hex_colour(getNode(x, y), State::HUMAN);
     switchPlayer();
     turns++;
 }
@@ -76,14 +77,14 @@ void HexBoard::print() {
 
     // Print the Board
     for (int i = 1; i <= (SIZE * SIZE); i++) {
-        switch (G.get_hex_colour(i)) {
-            case HexGraph::BLANK:
+        switch (S.get_hex_colour(i)) {
+            case State::BLANK:
                 cout << " E ";
                 break;
-            case HexGraph::HUMAN:
+            case State::HUMAN:
                 cout << " B ";
                 break;
-            case HexGraph::COMPUTER:
+            case State::COMPUTER:
                 cout << " W ";
                 break;
         }
@@ -98,18 +99,18 @@ void HexBoard::print() {
 }
 
 /* Returns the winner, or blank when there is no winner */
-HexGraph::HexCol HexBoard::hasWon() {
+State::Player HexBoard::hasWon() {
 
     // If there haven't been 11 turns EACH, then there's no need to look
     if (turns >= SIZE * 2) {
 
         // Check if HUMAN has won (Top to Bottom)
         for (int i = 1; i <= SIZE; i++) {
-            if (G.get_hex_colour(i) == HexGraph::HUMAN) {
-                G.dijkstra_run(i, HexGraph::HUMAN, true);
+            if (S.get_hex_colour(i) == State::HUMAN) {
+                G.dijkstra_run(i, State::HUMAN, true, S);
                 for (int j = getNode(SIZE, 1); j <= getNode(SIZE, SIZE); j++) {
                     if (G.get_parent(j) != NIL) {
-                        return HexGraph::HUMAN;
+                        return State::HUMAN;
                     }
                 }
             }
@@ -118,36 +119,36 @@ HexGraph::HexCol HexBoard::hasWon() {
         // Check if COMPUTER has won (Left to Right)
         int k = 1;
         for (int i = 1; i <= (SIZE * SIZE) - (SIZE - 1); i = getNode(++k, 1)) {
-            if (G.get_hex_colour(i) == HexGraph::COMPUTER) {
-                G.dijkstra_run(i, HexGraph::COMPUTER, true);
+            if (S.get_hex_colour(i) == State::COMPUTER) {
+                G.dijkstra_run(i, State::COMPUTER, true, S);
                 for (int j = getNode(1, SIZE); j <= getNode(SIZE, SIZE); j = getNode(getRow(j) + 1, SIZE)) {
                     if (G.get_parent(j) != NIL) {
-                        return HexGraph::COMPUTER;
+                        return State::COMPUTER;
                     }
                 }
             }
         }
     }
-    return HexGraph::BLANK;
+    return State::BLANK;
 }
 
 /* Resets the board to a blank state */
 void HexBoard::reset() {
     for (int i = 1; i <= (SIZE * SIZE); i++) {
-        G.set_hex_colour(i, HexGraph::BLANK);
+        S.set_hex_colour(i, State::BLANK);
     }
     turns = 0;
 }
 
 /* Returns true if the game has finished */
 bool HexBoard::isFinished() {
-    return (hasWon() != HexGraph::BLANK);
+    return (hasWon() != State::BLANK);
 }
 
 /* Returns a new Board with the specified move played. */
 HexBoard HexBoard::makemove(int move) {
-    HexBoard HB(this->G, this->turns + 1);
-    HB.G.set_hex_colour(move, Player);
+    HexBoard HB(this->G, this->S, this->turns + 1);
+    HB.S.set_hex_colour(move, Player);
     HB.switchPlayer();
     return HB;
 }
@@ -156,7 +157,7 @@ HexBoard HexBoard::makemove(int move) {
 vector<int> HexBoard::getMoves() {
     vector<int> moves;
     for (int i = 1; i <= (SIZE * SIZE); i++) {
-        if (G.get_hex_colour(i) == HexGraph::BLANK) {
+        if (S.get_hex_colour(i) == State::BLANK) {
             moves.push_back(i);
         }
     }
@@ -165,7 +166,7 @@ vector<int> HexBoard::getMoves() {
 
 /* Switches the current player. */
 void HexBoard::switchPlayer() {
-    Player = (Player == HexGraph::HUMAN ? HexGraph::COMPUTER : HexGraph::HUMAN);
+    Player = (Player == State::HUMAN ? State::COMPUTER : State::HUMAN);
 }
 
 /*Returns a number evaluating the current board. */

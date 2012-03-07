@@ -34,6 +34,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/State.o \
 	${OBJECTDIR}/Graph.o \
 	${OBJECTDIR}/HexGraph.o \
 	${OBJECTDIR}/main.o \
@@ -64,6 +65,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/ass5.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/ass5 ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/State.o: State.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/State.o State.cpp
 
 ${OBJECTDIR}/Graph.o: Graph.cpp 
 	${MKDIR} -p ${OBJECTDIR}

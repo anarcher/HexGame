@@ -25,7 +25,7 @@ int restart(char c) {
 int main() {
     int x, y;
     char yn;
-    HexGraph::HexCol won;
+    HexGraph::Player won;
 
     cout << "Welcome to Hex!\nYou are playing as Black, your goal is to connect Top and Bottom of the board." << endl;
 

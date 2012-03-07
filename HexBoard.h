@@ -16,10 +16,10 @@ public:
 
     HexBoard();
 
-    HexBoard(HexGraph &G, int turns);
+    HexBoard(HexGraph &G, State S, int turns);
     void print();
     void putPiece(int x, int y);
-    HexGraph::HexCol hasWon();
+    State::Player hasWon();
     void reset();
     void playNext();
 
@@ -30,7 +30,8 @@ public:
 
 private:
     HexGraph G;
-    HexGraph::HexCol Player;
+    State S;
+    State::Player Player;
     int turns;
 
     inline int getNode(int row, int col);
