@@ -13,7 +13,9 @@ const int SIZE = 11;
 
 class HexBoard {
 public:
-    HexBoard();
+
+    HexBoard() : Player(HexGraph::HUMAN) {
+    };
 
     HexBoard(HexGraph G, int turns) : G(G), turns(turns) {
     };
@@ -24,15 +26,18 @@ public:
     void playNext();
 
     bool isFinished();
-    HexBoard makemove(int move);
+    HexBoard makemove(int move, HexGraph::HexCol Player);
     std::vector<int> getMoves();
 private:
     HexGraph G;
+    HexGraph::HexCol Player;
     int turns;
 
     inline int getNode(int row, int col);
     inline int getCol(int x);
     inline int getRow(int x);
+    
+    void switchPlayer();
 };
 
 #endif	/* HEXBOARD_H */

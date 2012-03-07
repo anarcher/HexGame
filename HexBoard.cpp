@@ -55,6 +55,7 @@ void HexBoard::putPiece(int x, int y) {
     }
 
     G.set_hex_colour(getNode(x, y), HexGraph::HUMAN);
+    switchPlayer();
     turns++;
 }
 
@@ -90,7 +91,7 @@ void HexBoard::print() {
     cout << endl;
 }
 
-/* Returns BLACK if black wins, WHITE if white wins and BLANK if there's no winner */
+/* Returns the winner, or blank when there is no winner */
 HexGraph::HexCol HexBoard::hasWon() {
 
     // If there haven't been 11 turns, then there's no need to look
@@ -134,14 +135,13 @@ void HexBoard::reset() {
 }
 
 bool HexBoard::isFinished() {
-    HexGraph::HexCol won = this->hasWon();
-    return won == HexGraph::BLANK ? false : true;
+    return (hasWon() != HexGraph::BLANK);
 }
 
 HexBoard HexBoard::makemove(int move) {
-    HexBoard HB(this->G, this->turns);
-    HB.G.set_hex_colour(move, HexGraph::COMPUTER);
-    HB.turns++;
+    HexBoard HB(this->G, this->turns++);
+    HB.G.set_hex_colour(move, Player);
+    HB.switchPlayer();
     return HB;
 }
 
@@ -153,4 +153,8 @@ vector<int> HexBoard::getMoves() {
         }
     }
     return moves;
+}
+
+void HexBoard::switchPlayer() {
+    Player = (Player == HexGraph::HUMAN ? HexGraph::COMPUTER : HexGraph::HUMAN);
 }
