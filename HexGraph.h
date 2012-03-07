@@ -18,8 +18,6 @@ public:
 
     HexCol get_hex_colour(int vertex);
     void set_hex_colour(int vertex, HexCol c);
-    void optimise_weight(int vertex);
-    void reset_weight();
 
     void dijkstra_run(int source, HexCol c, bool yesCol);
 private:
@@ -30,7 +28,7 @@ private:
 
     typedef std::map<int, property> PropMap;
     PropMap propC;
-    
+
     PDeque make_queue(HexCol c, bool skip);
 };
 
