@@ -25,7 +25,7 @@ int restart(char c) {
 int main() {
     int x, y;
     char yn;
-    HexGraph::Player won;
+    State::Player won;
 
     cout << "Welcome to Hex!\nYou are playing as Black, your goal is to connect Top and Bottom of the board." << endl;
 
@@ -34,11 +34,11 @@ int main() {
 
         // Check if there's a winner and deal with it.
         won = HB.hasWon();
-        if (won == HexGraph::HUMAN) {
+        if (won == State::HUMAN) {
             cout << "You have won.\n Play again? (y/n)" << endl;
             cin >> yn;
             if (!restart(yn)) break;
-        } else if (won == HexGraph::COMPUTER) {
+        } else if (won == State::COMPUTER) {
             cout << "You have lost.\n Play again? (y/n)" << endl;
             cin >> yn;
             if (!restart(yn)) break;

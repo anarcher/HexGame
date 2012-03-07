@@ -28,7 +28,7 @@ HexBoard::HexBoard() {
     Player = State::HUMAN;
 }
 
-HexBoard::HexBoard(HexGraph &G, int turns) {
+HexBoard::HexBoard(HexGraph &G, State S, int turns) {
     this->G = G;
     this->turns = turns;
     this->S = S;
