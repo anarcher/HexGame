@@ -8,18 +8,20 @@
 #ifndef MONTECARLO_H_
 #define MONTECARLO_H_
 #include "HexBoard.h"
-static const double NEGINF = -INF;
 
+static const double NEGINF = -INF;
+static const int NUMGAMES = 20000;
 
 class MonteCarlo {
 public:
-    MonteCarlo();
-    ~MonteCarlo();
-    int getBestMove(HexBoard &board, State::Player player);
-    bool GameResult(State state, int currentMove, State::Player player);
-    int numberOfWins(State state, int firstmove);
-private:
 
+    MonteCarlo(HexBoard *HB) : HB(HB) {
+    };
+    int getBestMove();
+private:
+    int GameResult(State &S, State::Player player);
+    int numberOfWins(State &S);
+    HexBoard *HB;
 };
 
 

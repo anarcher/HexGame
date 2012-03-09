@@ -14,7 +14,7 @@ using namespace std;
  *  */
 pair<double, int> NegaMax::nm_compute(HexBoard board, int currentDepth, double alpha, double beta) {
     if (board.isFinished() || currentDepth <= 0) {
-        return make_pair(board.eval(), 0);
+        //return make_pair(board.eval(), 0);
     }
 
     int bestMove = 0;

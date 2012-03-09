@@ -26,17 +26,20 @@ public:
     bool isFinished();
     HexBoard makemove(int move);
     std::vector<int> getMoves();
-    double eval();
 
+    State getState();
+    void playComputer();
+
+    State::Player hasWon();
+    State::Player hasWon(State &S);
 private:
-    HexGraph G;
     State S;
+    HexGraph G;
     State::Player Player;
-    int turns;
 
-    inline int getNode(int row, int col);
-    inline int getCol(int x);
-    inline int getRow(int x);
+    static inline int getNode(int row, int col);
+    static inline int getCol(int x);
+    static inline int getRow(int x);
 
     void switchPlayer();
 };

@@ -39,7 +39,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/HexGraph.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/NegaMax.o \
-	${OBJECTDIR}/HexBoard.o
+	${OBJECTDIR}/HexBoard.o \
+	${OBJECTDIR}/_ext/155446752/MonteCarlo.o
 
 
 # C Compiler Flags
@@ -95,6 +96,11 @@ ${OBJECTDIR}/HexBoard.o: HexBoard.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/HexBoard.o HexBoard.cpp
+
+${OBJECTDIR}/_ext/155446752/MonteCarlo.o: /cygdrive/C/Users/Koy/Dropbox/Ass5/MonteCarlo.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/155446752
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/155446752/MonteCarlo.o /cygdrive/C/Users/Koy/Dropbox/Ass5/MonteCarlo.cpp
 
 # Subprojects
 .build-subprojects:

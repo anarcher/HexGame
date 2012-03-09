@@ -4,6 +4,7 @@
  *
  * Created on 18 February 2012, 12:59
  */
+#include "MonteCarlo.h"
 #include "HexBoard.h"
 #include <ctime>
 #include <cstdlib>
@@ -24,14 +25,14 @@ HexBoard::HexBoard() {
             }
         }
     }
-    turns = 0;
+    S.setTurns(0);
     Player = State::HUMAN;
 }
 
 HexBoard::HexBoard(HexGraph &G, State S, int turns) {
     this->G = G;
-    this->turns = turns;
     this->S = S;
+    this->S.setTurns(turns);
 }
 
 /* Returns the internal node number for a node at a given coordinate */
@@ -63,7 +64,6 @@ void HexBoard::putPiece(int x, int y) {
 
     S.set_hex_colour(getNode(x, y), State::HUMAN);
     switchPlayer();
-    turns++;
 }
 
 /* Prints the Hex Board */
@@ -98,46 +98,12 @@ void HexBoard::print() {
     cout << endl;
 }
 
-/* Returns the winner, or blank when there is no winner */
-State::Player HexBoard::hasWon() {
-
-    // If there haven't been 11 turns EACH, then there's no need to look
-    if (turns >= SIZE * 2) {
-
-        // Check if HUMAN has won (Top to Bottom)
-        for (int i = 1; i <= SIZE; i++) {
-            if (S.get_hex_colour(i) == State::HUMAN) {
-                G.dijkstra_run(i, State::HUMAN, true, S);
-                for (int j = getNode(SIZE, 1); j <= getNode(SIZE, SIZE); j++) {
-                    if (G.get_parent(j) != NIL) {
-                        return State::HUMAN;
-                    }
-                }
-            }
-        }
-
-        // Check if COMPUTER has won (Left to Right)
-        int k = 1;
-        for (int i = 1; i <= (SIZE * SIZE) - (SIZE - 1); i = getNode(++k, 1)) {
-            if (S.get_hex_colour(i) == State::COMPUTER) {
-                G.dijkstra_run(i, State::COMPUTER, true, S);
-                for (int j = getNode(1, SIZE); j <= getNode(SIZE, SIZE); j = getNode(getRow(j) + 1, SIZE)) {
-                    if (G.get_parent(j) != NIL) {
-                        return State::COMPUTER;
-                    }
-                }
-            }
-        }
-    }
-    return State::BLANK;
-}
-
 /* Resets the board to a blank state */
 void HexBoard::reset() {
     for (int i = 1; i <= (SIZE * SIZE); i++) {
         S.set_hex_colour(i, State::BLANK);
     }
-    turns = 0;
+    S.setTurns(0);
 }
 
 /* Returns true if the game has finished */
@@ -147,7 +113,7 @@ bool HexBoard::isFinished() {
 
 /* Returns a new Board with the specified move played. */
 HexBoard HexBoard::makemove(int move) {
-    HexBoard HB(this->G, this->S, this->turns + 1);
+    HexBoard HB(this->G, this->S, this->S.getTurns() + 1);
     HB.S.set_hex_colour(move, Player);
     HB.switchPlayer();
     return HB;
@@ -169,7 +135,50 @@ void HexBoard::switchPlayer() {
     Player = (Player == State::HUMAN ? State::COMPUTER : State::HUMAN);
 }
 
-/*Returns a number evaluating the current board. */
-double HexBoard::eval() {
-    // Magic Code goes here!
+State HexBoard::getState() {
+    return S;
+}
+
+void HexBoard::playComputer() {
+    MonteCarlo MC(this);
+    int move = MC.getBestMove();
+    S.set_hex_colour(move, State::COMPUTER);
+}
+
+State::Player HexBoard::hasWon(){
+    return hasWon(S);
+}
+
+/* Returns the winner, or blank when there is no winner */
+State::Player HexBoard::hasWon(State &state) {
+
+    // If there haven't been 11 turns EACH, then there's no need to look
+    if (state.getTurns() >= SIZE * 2) {
+
+        // Check if HUMAN has won (Top to Bottom)
+        for (int i = 1; i <= SIZE; i++) {
+            if (state.get_hex_colour(i) == State::HUMAN) {
+                G.dijkstra_run(i, State::HUMAN, true, state);
+                for (int j = getNode(SIZE, 1); j <= getNode(SIZE, SIZE); j++) {
+                    if (G.get_parent(j) != NIL) {
+                        return State::HUMAN;
+                    }
+                }
+            }
+        }
+
+        // Check if COMPUTER has won (Left to Right)
+        int k = 1;
+        for (int i = 1; i <= (SIZE * SIZE) - (SIZE - 1); i = getNode(++k, 1)) {
+            if (state.get_hex_colour(i) == State::COMPUTER) {
+                G.dijkstra_run(i, State::COMPUTER, true, state);
+                for (int j = getNode(1, SIZE); j <= getNode(SIZE, SIZE); j = getNode(getRow(j) + 1, SIZE)) {
+                    if (G.get_parent(j) != NIL) {
+                        return State::COMPUTER;
+                    }
+                }
+            }
+        }
+    }
+    return State::BLANK;
 }
