@@ -147,12 +147,12 @@ State::Player HexBoard::hasWon(){
 State::Player HexBoard::hasWon(State &state) {
 
     // If there haven't been 11 turns EACH, then there's no need to look
-    if (state.getTurns() >= SIZE * 2) {
+    if (state.getTurns() >= SIZE) {
 
         // Check if HUMAN has won (Top to Bottom)
         for (int i = 1; i <= SIZE; i++) {
             if (state.get_hex_colour(i) == State::HUMAN) {
-                G.dijkstra_run(i, State::HUMAN, true, state);
+                G.dijkstra_run(i, State::HUMAN, state);
                 for (int j = getNode(SIZE, 1); j <= getNode(SIZE, SIZE); j++) {
                     if (G.get_parent(j) != NIL) {
                         return State::HUMAN;
@@ -165,7 +165,7 @@ State::Player HexBoard::hasWon(State &state) {
         int k = 1;
         for (int i = 1; i <= (SIZE * SIZE) - (SIZE - 1); i = getNode(++k, 1)) {
             if (state.get_hex_colour(i) == State::COMPUTER) {
-                G.dijkstra_run(i, State::COMPUTER, true, state);
+                G.dijkstra_run(i, State::COMPUTER, state);
                 for (int j = getNode(1, SIZE); j <= getNode(SIZE, SIZE); j = getNode(getRow(j) + 1, SIZE)) {
                     if (G.get_parent(j) != NIL) {
                         return State::COMPUTER;

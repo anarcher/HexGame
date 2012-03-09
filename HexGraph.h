@@ -12,9 +12,9 @@
 
 class HexGraph : public Graph {
 public:
-    void dijkstra_run(int source, State::Player c, bool yesCol, State S);
+    void dijkstra_run(int source, State::Player c, State S);
 private:
-    PDeque make_queue(State::Player c, bool skip, State S);
+    PDeque make_queue(State::Player c, State S);
 };
 
 #endif	/* HEXGRAPH_H */

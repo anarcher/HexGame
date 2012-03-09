@@ -32,15 +32,13 @@ int MonteCarlo::getBestMove() {
 int MonteCarlo::GameResult(State &S, State::Player player) {
 
     State::Player winner = HB->hasWon(S);
-    switch (winner) {
-        case State::COMPUTER:
-            return 1;
-        case State::HUMAN:
-            return 0;
-        default:
-            break;
+    if (winner == State::COMPUTER){
+        return 1;
     }
-
+    else if (winner == State::HUMAN){
+        return 0;
+    }
+    
     vector<int> moves = S.getMoves();
     int randomMove = moves[rand() % moves.size()];
 
