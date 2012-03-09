@@ -34,14 +34,12 @@ int MonteCarlo::GameResult(State &S, State::Player player) {
     State::Player winner = HB->hasWon(S);
     switch (winner) {
         case State::COMPUTER:
-            return 0;
-        case State::HUMAN:
             return 1;
+        case State::HUMAN:
+            return 0;
         default:
             break;
     }
-
-    srand(time(NULL));
 
     vector<int> moves = S.getMoves();
     int randomMove = moves[rand() % moves.size()];
@@ -58,6 +56,7 @@ int MonteCarlo::numberOfWins(State &S) {
 
     int result = 0;
     for (int i = 0; i < NUMGAMES; i++) {
+        srand(time(NULL));
         result += GameResult(S, State::COMPUTER);
     }
     return result;
