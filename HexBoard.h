@@ -19,7 +19,6 @@ public:
     HexBoard(HexGraph &G, State S, int turns);
     void print();
     void putPiece(int x, int y);
-    State::Player hasWon();
     void reset();
     void playNext();
 
