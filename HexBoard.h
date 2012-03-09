@@ -25,7 +25,6 @@ public:
     bool isFinished();
     HexBoard makemove(int move);
     std::vector<int> getMoves();
-    std::vector<int> getMoves(State &S);
 
     State getState();
     void playComputer();

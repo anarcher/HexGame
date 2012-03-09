@@ -25,3 +25,14 @@ void State::setTurns(int turns) {
 int State::getTurns() {
     return turns;
 }
+
+/* Returns a vector of all possible moves. */
+std::vector<int> State::getMoves() {
+    std::vector<int> moves;
+    for (int i = 1; i <= 121; i++) {
+        if (get_hex_colour(i) == State::BLANK) {
+            moves.push_back(i);
+        }
+    }
+    return moves;
+}

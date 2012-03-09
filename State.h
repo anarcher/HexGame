@@ -8,6 +8,7 @@
 #ifndef STATE_H
 #define	STATE_H
 #include <map>
+#include <vector>
 
 class State {
 public:
@@ -25,6 +26,8 @@ public:
 
     void setTurns(int turns);
     int getTurns();
+    
+    std::vector<int> getMoves();
 
 private:
     int turns;
