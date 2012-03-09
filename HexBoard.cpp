@@ -139,7 +139,7 @@ void HexBoard::playComputer() {
     S.set_hex_colour(move, State::COMPUTER);
 }
 
-State::Player HexBoard::hasWon(){
+State::Player HexBoard::hasWon() {
     return hasWon(S);
 }
 
@@ -147,7 +147,7 @@ State::Player HexBoard::hasWon(){
 State::Player HexBoard::hasWon(State &state) {
 
     // If there haven't been 11 turns EACH, then there's no need to look
-    if (state.getTurns() >= SIZE) {
+    if (state.getTurns() >= SIZE * 2) {
 
         // Check if HUMAN has won (Top to Bottom)
         for (int i = 1; i <= SIZE; i++) {
