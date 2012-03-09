@@ -121,9 +121,14 @@ HexBoard HexBoard::makemove(int move) {
 
 /* Returns a vector of all possible moves. */
 vector<int> HexBoard::getMoves() {
+    return getMoves(S);
+}
+
+/* Returns a vector of all possible moves. */
+vector<int> HexBoard::getMoves(State &state) {
     vector<int> moves;
     for (int i = 1; i <= (SIZE * SIZE); i++) {
-        if (S.get_hex_colour(i) == State::BLANK) {
+        if (state.get_hex_colour(i) == State::BLANK) {
             moves.push_back(i);
         }
     }

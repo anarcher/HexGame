@@ -42,11 +42,9 @@ int MonteCarlo::GameResult(State &S, State::Player player) {
     }
 
     srand(time(NULL));
-    int randomMove = rand() % (SIZE * SIZE);
 
-    while (S.get_hex_colour(randomMove) != State::BLANK) {
-        randomMove = rand() % (SIZE * SIZE);
-    }
+    vector<int> moves = HB->getMoves(S);
+    int randomMove = moves[rand() % moves.size()];
 
     S.set_hex_colour(randomMove, player);
 
