@@ -1,6 +1,6 @@
 /* 
  * File:   State.h
- * Author: Koy
+ * Author: Pit Apps
  *
  * Created on 06 March 2012, 19:52
  */
