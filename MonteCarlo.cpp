@@ -12,9 +12,9 @@ using namespace std;
 
 int MonteCarlo::getBestMove() {
 
-    double bestResult = NEGINF;
+    int bestResult = 0;
     int bestMove = 0;
-    for (int i = 1; i < SIZE * SIZE; i++) {
+    for (int i = 1; i <= (SIZE * SIZE); i++) {
         State S = HB->getState();
         if (S.get_hex_colour(i) == State::BLANK) {
             S.set_hex_colour(i, State::COMPUTER);
