@@ -7,7 +7,7 @@
       <itemPath>Graph.h</itemPath>
       <itemPath>HexBoard.h</itemPath>
       <itemPath>HexGraph.h</itemPath>
-      <itemPath>C:/Users/Koy/Dropbox/Ass5/MonteCarlo.h</itemPath>
+      <itemPath>MonteCarlo.h</itemPath>
       <itemPath>NegaMax.h</itemPath>
       <itemPath>State.h</itemPath>
     </logicalFolder>
@@ -21,7 +21,7 @@
       <itemPath>Graph.cpp</itemPath>
       <itemPath>HexBoard.cpp</itemPath>
       <itemPath>HexGraph.cpp</itemPath>
-      <itemPath>C:/Users/Koy/Dropbox/Ass5/MonteCarlo.cpp</itemPath>
+      <itemPath>MonteCarlo.cpp</itemPath>
       <itemPath>NegaMax.cpp</itemPath>
       <itemPath>State.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -59,6 +59,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

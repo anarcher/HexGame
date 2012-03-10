@@ -55,7 +55,7 @@ int main() {
             HB.putPiece(x, y);
 
             // Play the computer's move and print the board.
-            //HB.playComputer();
+            HB.playComputer();
             HB.print();
         } catch (int e) {
             switch (e) {

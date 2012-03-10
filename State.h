@@ -27,13 +27,15 @@ public:
 
     void setTurns(int turns);
     int getTurns();
-    
+
     void print();
 
     std::vector<int> getMoves();
     void removeMove(int i);
     void fillMoves();
     int getSize();
+
+    int getNextMove();
 
 private:
     int turns;
