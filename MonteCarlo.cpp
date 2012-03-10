@@ -12,9 +12,6 @@
 #include <ctime>
 
 using namespace std;
-vector<int> moves;
-int randomMove;
-State::Player winner;
 
 double diffclock(clock_t clock1, clock_t clock2) {
     double diffticks = clock1 - clock2;
@@ -42,7 +39,7 @@ int MonteCarlo::getBestMove() {
         //cout << "ai games played for candidate-move " << i << "..." << endl;
     }
     clock_t end = clock();
-    
+
     cout << "Time elapsed: " << double(diffclock(end, begin)) << " ms" << endl;
     std::cout << "bestMove is:" << bestMove << endl;
     return bestMove;
@@ -63,18 +60,18 @@ int MonteCarlo::numberOfWins(State &S) {
 int MonteCarlo::GameResult(State S, State::Player player) {
 
     S.fillMoves();
-    moves = S.getMoves();
+    vector<int> moves = S.getMoves();
     random_shuffle(moves.begin(), moves.end());
 
     while (S.getSize() > 0) {
 
-        randomMove = S.getNextMove();
-        S.set_hex_colour(randomMove, player); //+1 because (1,1) is actually 1
+        int randomMove = S.getNextMove();
+        S.set_hex_colour(randomMove, player);
         player = (player == State::HUMAN ? State::COMPUTER : State::HUMAN);
 
     }
 
-    winner = HB->hasWon(S);
+    State::Player winner = HB->hasWon(S);
 
     if (winner == State::COMPUTER) {
         return 1;
