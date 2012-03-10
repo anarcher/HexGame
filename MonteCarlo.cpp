@@ -25,6 +25,42 @@ int MonteCarlo::getBestMove() {
 				bestMove = i;
 			}
 		}
+
+		cout << "al games played for candidate-move " << i << "..." << endl;
+		/*	FEEDBACK FOR WAITING
+		 switch (i){
+		case (SIZE * SIZE)/10:
+		cout << "Please wait 10..." <<endl;
+		case (SIZE * SIZE)/9:
+		cout << "9..." <<endl;
+		break;
+		case (SIZE * SIZE)/8:
+		cout << "8..." <<endl;
+		break;
+		case (SIZE * SIZE)/7:
+		cout << "7..." <<endl;
+		break;
+		case (SIZE * SIZE)/6:
+		cout << "6..." <<endl;
+		break;
+		case (SIZE * SIZE)/5:
+		cout << "5..." <<endl;
+		break;
+		case (SIZE * SIZE)/4:
+		cout << "4..." <<endl;
+		break;
+		case (SIZE * SIZE)/3:
+		cout << "3..." <<endl;
+		break;
+		case (SIZE * SIZE)/2:
+		cout << "2..." <<endl;
+		break;
+		case (SIZE * SIZE)/1:
+		cout << "1..." <<endl;
+		break;
+		}
+		*/
+
 	}
 	std::cout << "bestMove is:" << bestMove << endl;
 	return bestMove;
@@ -37,6 +73,10 @@ int MonteCarlo::numberOfWins(State &S) {
 	for (int i = 0; i < NUMGAMES; i++) {
 		srand(time(NULL));
 		result += GameResult(S, State::COMPUTER);
+		//cout << "game " << i << "..." << endl;
+
+
+
 	}
 	return result;
 
@@ -45,40 +85,36 @@ int MonteCarlo::numberOfWins(State &S) {
 
 
 
-int MonteCarlo::GameResult(State &S, State::Player player) {
+int MonteCarlo::GameResult(State S, State::Player player) {
 
-	for(int i =1 ; i <= 121 ; i++){
-		if(S.get_hex_colour(i) == State::BLANK){
-			S.moves.push_back(i);
-		}
-	}
+	//S.print();
 
-	while(S.getMoves().size() != 0 ){
+	S.fillMoves();
 
-		vector<int> moves = S.getMoves();
-		int moveRemoved = rand() % moves.size();
-		int randomMove = moves[moveRemoved];
+	//cout << "moves filled (size = " << S.getMoves().size() << ")" << endl;
 
-		//tests ****
-		for(int i = 0 ; i < moves.size(); i++)
-			cout << "moves[" << i << "] = " << moves[i] <<endl;
+	while(S.getSize() > 0 ){
+
+		int moveRemoved = rand() % S.getSize();
+		int randomMove = S.getMoves()[moveRemoved];
+
+		//cout << "the random: " << moveRemoved << "(" << randomMove << ")"  <<endl;
+		/* tests ****
+		for(int i = 0 ; i < S.getSize(); i++)
+			cout << "moves[" << i << "] = " << S.getMoves()[moveRemoved] <<endl;
 		cout << "removing n#" << moveRemoved << " (" << randomMove << ")" << endl;
-		//test *****
+		test *****/
 
 		S.set_hex_colour(randomMove +1 , player); //+1 because (1,1) is actually 1
 		S.removeMove(moveRemoved);
 
-		//test ****
-		for(int i = 0 ; i < moves.size(); i++)
-					cout << "moves[" << i << "] = " << moves[i] <<endl;
-		//test ****
 
-		S.print();
+		//S.print();
 
 		player = (player == State::HUMAN ? State::COMPUTER : State::HUMAN);
 
 	}
-
+	//cout << "GAME FINISHED\n\n\n" << endl;
 	State::Player winner = HB->hasWon(S);
 	if (winner == State::COMPUTER){
 		return 1;

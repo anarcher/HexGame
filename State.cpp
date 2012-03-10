@@ -38,23 +38,40 @@ void State::removeMove(int i){
 
 }
 
+void State::fillMoves(){
+
+	for(int i = 1 ; i <= (11 * 11) ; i++){
+		if(get_hex_colour(i) == State::BLANK){
+			moves.push_back(i); //logical error why starts at 3?? should start at 2! (if human begins with (1, 1))
+		}
+	}
+
+}
+
+int State::getSize(){
+	return moves.size();
+}
+
 void State::print(){
 	std::cout << " \n\n\n ";
 
 
 	// Print the Board
-	for (int i = 1; i <= (11 * 11); i++) {
-		switch (get_hex_colour(i)) {
-		case State::BLANK:
-			std::cout << " E ";
-			break;
-		case State::HUMAN:
-			std::cout << " B ";
-			break;
-		case State::COMPUTER:
-			std::cout << " W ";
-			break;
+	for (int i = 1; i <= 11; i++) {
+		for(int y = 1 ; y <= 11; y++){
+			switch (get_hex_colour((i) + (y-1)*11)) {
+			case State::BLANK:
+				std::cout << " E ";
+				break;
+			case State::HUMAN:
+				std::cout << " B ";
+				break;
+			case State::COMPUTER:
+				std::cout << " W ";
+				break;
+			}
 		}
+		std::cout << "\n " <<std::endl;
 	}
 	std::cout << "------------------------------" << std::endl;
 

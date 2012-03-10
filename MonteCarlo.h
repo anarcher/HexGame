@@ -10,7 +10,7 @@
 #include "HexBoard.h"
 
 static const double NEGINF = -INF;
-static const int NUMGAMES = 70000;
+static const int NUMGAMES = 100;
 
 class MonteCarlo {
 public:
@@ -19,7 +19,7 @@ public:
     };
     int getBestMove();
 private:
-    int GameResult(State &S, State::Player player);
+    int GameResult(State S, State::Player player);
     int numberOfWins(State &S);
     HexBoard *HB;
 };

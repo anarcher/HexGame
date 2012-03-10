@@ -32,6 +32,8 @@ public:
 
     std::vector<int> getMoves();
     void removeMove(int i);
+    void fillMoves();
+    int getSize();
 
 private:
     int turns;
