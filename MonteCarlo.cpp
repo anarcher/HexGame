@@ -47,6 +47,12 @@ int MonteCarlo::numberOfWins(State &S) {
 
 int MonteCarlo::GameResult(State &S, State::Player player) {
 
+	for(int i =1 ; i <= 121 ; i++){
+		if(S.get_hex_colour(i) == State::BLANK){
+			S.moves.push_back(i);
+		}
+	}
+
 	while(S.getMoves().size() != 0 ){
 
 		vector<int> moves = S.getMoves();
