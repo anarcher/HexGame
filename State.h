@@ -9,6 +9,7 @@
 #define	STATE_H
 #include <map>
 #include <vector>
+#include <iostream>
 
 class State {
 public:
@@ -27,11 +28,15 @@ public:
     void setTurns(int turns);
     int getTurns();
     
+    void print();
+
     std::vector<int> getMoves();
+    void removeMove(int i);
 
 private:
     int turns;
     PieceMap piece;
+    std::vector<int> moves;
 };
 
 #endif	/* STATE_H */

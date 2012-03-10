@@ -1,0 +1,17 @@
+Optimizations in Montecarlo GameResult:
+
+	* playing only on slots in the vector "move" that the State object has.
+	* finishing the 121 moves, and only then see who has won, because there is always a winner
+	* 
+
+
+To be done:
+
+	* logic of the AI game … ????
+	* check logic behind removal of moves from the "move" Vector in GameResult().
+
+
+Notes:
+
+	* It seems like White is playing top-down (!?)
+	* Reasonable waiting-time until 70'000 games per candidate move.
