@@ -9,12 +9,25 @@
 #include <ctime>
 #include <cstdlib>
 #include <algorithm>
+#include <ctime>
+
 using namespace std;
+vector<int> moves;
+int randomMove;
+State::Player winner;
+
+double diffclock(clock_t clock1, clock_t clock2) {
+    double diffticks = clock1 - clock2;
+    double diffms = (diffticks * 1000) / CLOCKS_PER_SEC;
+    return diffms;
+}
 
 int MonteCarlo::getBestMove() {
 
     int bestResult = 0;
     int bestMove = 0;
+    clock_t begin = clock();
+
     for (int i = 1; i <= (SIZE * SIZE); i++) {
         State S = HB->getState();
         if (S.get_hex_colour(i) == State::BLANK) {
@@ -26,10 +39,11 @@ int MonteCarlo::getBestMove() {
                 bestMove = i;
             }
         }
-
-        cout << "al games played for candidate-move " << i << "..." << endl;
-
+        //cout << "ai games played for candidate-move " << i << "..." << endl;
     }
+    clock_t end = clock();
+    
+    cout << "Time elapsed: " << double(diffclock(end, begin)) << " ms" << endl;
     std::cout << "bestMove is:" << bestMove << endl;
     return bestMove;
 }
@@ -49,18 +63,18 @@ int MonteCarlo::numberOfWins(State &S) {
 int MonteCarlo::GameResult(State S, State::Player player) {
 
     S.fillMoves();
-    vector<int> moves = S.getMoves();
+    moves = S.getMoves();
     random_shuffle(moves.begin(), moves.end());
 
     while (S.getSize() > 0) {
 
-        int randomMove = S.getNextMove();
+        randomMove = S.getNextMove();
         S.set_hex_colour(randomMove, player); //+1 because (1,1) is actually 1
         player = (player == State::HUMAN ? State::COMPUTER : State::HUMAN);
 
     }
 
-    State::Player winner = HB->hasWon(S);
+    winner = HB->hasWon(S);
 
     if (winner == State::COMPUTER) {
         return 1;

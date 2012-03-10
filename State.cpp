@@ -28,7 +28,6 @@ int State::getTurns() {
 
 /* Returns a vector of all possible moves. */
 std::vector<int> State::getMoves() {
-
     return moves;
 }
 
