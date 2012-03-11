@@ -143,7 +143,7 @@ State::Player HexBoard::hasWon() {
     return hasWon(S);
 }
 
-std::vector<int> HexBoard::getNeighborsOf(int i, State &state, State::Player wanted, vector<bool> &visited) {
+std::vector<int> HexBoard::getNeighboursOf(int i, State &state, State::Player wanted, vector<bool> &visited) {
 
     vector<int> edgeVector;
     Graph::EdList temp = G.get_edges(i);
@@ -172,10 +172,10 @@ bool HexBoard::checkWon(State &state, State::Player wanted, int current, vector<
     }
 
     visited[current] = true;
-    vector<int> neighbors = getNeighborsOf(current, state, wanted, visited);
+    vector<int> neighbours = getNeighboursOf(current, state, wanted, visited);
 
-    if (!neighbors.empty()) {
-        for (vector<int>::iterator j = neighbors.begin(); j != neighbors.end(); j++) {
+    if (!neighbours.empty()) {
+        for (vector<int>::iterator j = neighbours.begin(); j != neighbours.end(); j++) {
             visited[*j] = true;
             return checkWon(state, wanted, *j, visited);
         }

@@ -45,7 +45,7 @@ private:
     static inline int getRow(int x);
 
     void switchPlayer();
-    std::vector<int> getNeighborsOf(int i, State &state, State::Player wanted, std::vector<bool> &visited);
+    std::vector<int> getNeighboursOf(int i, State &state, State::Player wanted, std::vector<bool> &visited);
     bool checkWon(State &state, State::Player wanted, int current, std::vector<bool> &visited);
 
 };
