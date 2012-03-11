@@ -31,6 +31,10 @@ public:
 
     State::Player hasWon();
     State::Player hasWon(State &S);
+
+
+    State::Player hasWon2();
+    State::Player hasWon2(State &state);
 private:
     State S;
     HexGraph G;
@@ -41,6 +45,9 @@ private:
     static inline int getRow(int x);
 
     void switchPlayer();
+    std::vector<int> getNeighborsOf(int i, State &state, State::Player wanted, std::vector<bool> &visited);
+    bool checkWon(State &state, State::Player wanted, int current, std::vector<bool> &visited);
+
 };
 
 #endif	/* HEXBOARD_H */

@@ -99,6 +99,10 @@ int Graph::get_parent(int vertex) {
     return prop[vertex].parent;
 }
 
+Graph::EdList Graph::get_edges(int i) {
+    return adj[i];
+}
+
 /* Sets the parent of a given vertex */
 void Graph::set_parent(int vertex, int parent) {
     prop[vertex].parent = parent;

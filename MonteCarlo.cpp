@@ -71,7 +71,7 @@ int MonteCarlo::GameResult(State S, State::Player player) {
 
     }
 
-    State::Player winner = HB->hasWon(S);
+    State::Player winner = HB->hasWon2(S);
 
     if (winner == State::COMPUTER) {
         return 1;

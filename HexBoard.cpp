@@ -143,6 +143,71 @@ State::Player HexBoard::hasWon() {
     return hasWon(S);
 }
 
+std::vector<int> HexBoard::getNeighborsOf(int i, State &state, State::Player wanted, vector<bool> &visited) {
+
+    vector<int> edgeVector;
+    Graph::EdList temp = G.get_edges(i);
+    for (Graph::EdList::iterator it = temp.begin(); it != temp.end(); it++) {
+        if (state.get_hex_colour(it->dest) == wanted && visited[it->dest] == false) {
+            edgeVector.push_back(it->dest);
+        }
+    }
+
+    return edgeVector;
+}
+
+/**
+ *
+ */
+bool HexBoard::checkWon(State &state, State::Player wanted, int current, vector<bool> &visited) {
+
+    if (wanted == State::COMPUTER) {
+        if (getCol(current) == SIZE) {
+            return true;
+        }
+    } else {
+        if (getRow(current) == SIZE) {
+            return true;
+        }
+    }
+
+    visited[current] = true;
+    vector<int> neighbors = getNeighborsOf(current, state, wanted, visited);
+
+    if (!neighbors.empty()) {
+        for (vector<int>::iterator j = neighbors.begin(); j != neighbors.end(); j++) {
+            visited[*j] = true;
+            return checkWon(state, wanted, *j, visited);
+        }
+    } else {
+        return false;
+    }
+}
+
+State::Player HexBoard::hasWon2() {
+    return hasWon2(S);
+}
+
+State::Player HexBoard::hasWon2(State &state) {
+    //if (state.getTurns() >= SIZE * 2) {
+    std::vector<bool> visited((SIZE * SIZE) + 1, false);
+
+    /* CHECK HUMAN */
+    if (this->checkWon(state, State::HUMAN, 1, visited)) {
+        return State::HUMAN;
+    }
+
+    visited.clear();
+    visited.resize((SIZE * SIZE) + 1, false);
+
+    /* CHECK COMPUTER */
+    if (checkWon(state, State::COMPUTER, 1, visited)) {
+        return State::COMPUTER;
+    }
+    // }
+    return State::BLANK;
+}
+
 /* Returns the winner, or blank when there is no winner */
 State::Player HexBoard::hasWon(State &state) {
 

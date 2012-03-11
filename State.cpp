@@ -9,13 +9,13 @@
 
 /* Sets the colour of a given vertex. */
 void State::set_hex_colour(int vertex, Player c) {
-    piece[vertex] = c;
+    piece.at(vertex) = c;
     turns++;
 }
 
 /* Gets the colour of a given vertex. */
 State::Player State::get_hex_colour(int vertex) {
-    return piece[vertex];
+    return piece.at(vertex);
 }
 
 void State::setTurns(int turns) {

@@ -10,7 +10,7 @@
 #include "HexBoard.h"
 
 static const double NEGINF = -INF;
-static const int NUMGAMES = 100;
+static const int NUMGAMES = 1000;
 
 class MonteCarlo {
 public:

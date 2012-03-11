@@ -28,6 +28,20 @@ public:
         FIRST, RED, GREEN, BLUE, LAST
     };
 
+    // An edge has a target, its weight and optionally a colour.
+
+    struct edge {
+        int dest;
+        double weight;
+        Colour c;
+
+        edge(int dest, double weight, Colour c = RED)
+        : dest(dest), weight(weight), c(c) {
+        }
+    };
+    typedef std::list<edge> EdList;
+
+
     Graph() {
         // default constructor that does not do anything
     };
@@ -50,6 +64,7 @@ public:
     int get_parent(int vertex);
     int get_vertex_count();
     int get_edge_count();
+    EdList get_edges(int i);
     bool edge_exists(int source, int dest);
 
     void dijkstra_run(int source);
@@ -75,17 +90,7 @@ private:
         bool inTree; // needed for Prim's only
     } property;
 
-    // An edge has a target, its weight and optionally a colour.
 
-    struct edge {
-        int dest;
-        double weight;
-        Colour c;
-
-        edge(int dest, double weight, Colour c = RED)
-        : dest(dest), weight(weight), c(c) {
-        }
-    };
     static const std::string clabel[5];
 protected:
     // Comparator for pairs
@@ -97,7 +102,6 @@ protected:
         }
     };
 
-    typedef std::list<edge> EdList;
     typedef std::map<int, EdList > AdjMap;
     typedef std::map<int, property> PropMap;
 
