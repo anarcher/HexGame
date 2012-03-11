@@ -189,22 +189,21 @@ State::Player HexBoard::hasWon2() {
 }
 
 State::Player HexBoard::hasWon2(State &state) {
-    //if (state.getTurns() >= SIZE * 2) {
-    std::vector<bool> visited((SIZE * SIZE) + 1, false);
+    if (state.getTurns() >= SIZE * 2) {
+        std::vector<bool> visited((SIZE * SIZE) + 1, false);
 
-    /* CHECK HUMAN */
-    if (this->checkWon(state, State::HUMAN, 1, visited)) {
-        return State::HUMAN;
+        /* CHECK HUMAN */
+        if (this->checkWon(state, State::HUMAN, 1, visited)) {
+            return State::HUMAN;
+        }
+
+        std::vector<bool> visited2((SIZE * SIZE) + 1, false); // faster than resetting the other vector
+
+        /* CHECK COMPUTER */
+        if (checkWon(state, State::COMPUTER, 1, visited2)) {
+            return State::COMPUTER;
+        }
     }
-
-    visited.clear();
-    visited.resize((SIZE * SIZE) + 1, false);
-
-    /* CHECK COMPUTER */
-    if (checkWon(state, State::COMPUTER, 1, visited)) {
-        return State::COMPUTER;
-    }
-    // }
     return State::BLANK;
 }
 

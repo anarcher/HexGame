@@ -15,13 +15,13 @@ CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
 CND_PACKAGE_NAME_Debug=ass5.tar
 CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/ass5.tar
 # Release configuration
-CND_PLATFORM_Release=Cygwin-Windows
-CND_ARTIFACT_DIR_Release=dist/Release/Cygwin-Windows
+CND_PLATFORM_Release=GNU-Linux-x86
+CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
 CND_ARTIFACT_NAME_Release=ass5
-CND_ARTIFACT_PATH_Release=dist/Release/Cygwin-Windows/ass5
-CND_PACKAGE_DIR_Release=dist/Release/Cygwin-Windows/package
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/ass5
+CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
 CND_PACKAGE_NAME_Release=ass5.tar
-CND_PACKAGE_PATH_Release=dist/Release/Cygwin-Windows/package/ass5.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/ass5.tar
 #
 # include compiler specific variables
 #
