@@ -8,7 +8,6 @@
 #include "MonteCarlo.h"
 #include <ctime>
 #include <cstdlib>
-#include <algorithm>
 
 using namespace std;
 
@@ -59,15 +58,12 @@ int MonteCarlo::numberOfWins(State &S) {
 int MonteCarlo::GameResult(State S, State::Player player) {
 
     S.fillMoves();
-    vector<int> moves = S.getMoves();
-    random_shuffle(moves.begin(), moves.end());
+    S.shuffleMoves();
 
-    while (S.getSize() > 0) {
-
+    while (!S.movesEmpty()) {
         int randomMove = S.getNextMove();
         S.set_hex_colour(randomMove, player);
         player = (player == State::HUMAN ? State::COMPUTER : State::HUMAN);
-
     }
 
     State::Player winner = HB->hasWon(S);

@@ -33,7 +33,8 @@ public:
     std::vector<int> getMoves();
     void removeMove(int i);
     void fillMoves();
-    int getSize();
+    bool movesEmpty();
+    void shuffleMoves();
 
     int getNextMove();
 

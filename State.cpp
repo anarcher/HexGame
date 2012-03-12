@@ -6,6 +6,8 @@
  */
 
 #include "State.h"
+#include <algorithm>
+
 
 /* Sets the colour of a given vertex. */
 void State::set_hex_colour(int vertex, Player c) {
@@ -49,8 +51,12 @@ void State::fillMoves() {
     }
 }
 
-int State::getSize() {
-    return moves.size();
+void State::shuffleMoves() {
+    std::random_shuffle(moves.begin(), moves.end());
+}
+
+bool State::movesEmpty() {
+    return moves.empty();
 }
 
 void State::print() {
