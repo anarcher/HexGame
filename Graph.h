@@ -51,7 +51,7 @@ public:
     int get_parent(int vertex);
     int get_vertex_count();
     int get_edge_count();
-    std::vector<int> get_edges(int i);
+    std::vector<int>* get_edges(int i);
     bool edge_exists(int source, int dest);
 
     void dijkstra_run(int source);

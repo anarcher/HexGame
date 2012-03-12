@@ -45,9 +45,11 @@ int MonteCarlo::getBestMove() {
 }
 
 /* Returns the result of number of games won. */
-int MonteCarlo::numberOfWins(State &S) {
+int MonteCarlo::numberOfWins(State S) {
 
     int result = 0;
+    S.fillMoves();
+
     for (int i = 0; i < NUMGAMES; i++) {
         result += GameResult(S, State::COMPUTER);
     }
@@ -57,7 +59,6 @@ int MonteCarlo::numberOfWins(State &S) {
 
 int MonteCarlo::GameResult(State S, State::Player player) {
 
-    S.fillMoves();
     S.shuffleMoves();
 
     while (!S.movesEmpty()) {

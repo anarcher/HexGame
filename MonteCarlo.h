@@ -19,7 +19,7 @@ public:
     int getBestMove();
 private:
     int GameResult(State S, State::Player player);
-    int numberOfWins(State &S);
+    int numberOfWins(State S);
     HexBoard *HB;
 };
 

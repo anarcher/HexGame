@@ -143,8 +143,8 @@ void HexBoard::playComputer() {
 std::vector<int> HexBoard::getNeighboursOf(int i, State &state, State::Player wanted, vector<bool> &visited) {
 
     vector<int> edgeVector;
-    vector<int> temp = G.get_edges(i);
-    for (vector<int>::iterator it = temp.begin(); it != temp.end(); it++) {
+    vector<int> *temp = G.get_edges(i);
+    for (vector<int>::iterator it = temp->begin(); it != temp->end(); it++) {
         if (state.get_hex_colour(*it) == wanted && visited[*it] == false) {
             edgeVector.push_back(*it);
         }
@@ -173,7 +173,6 @@ bool HexBoard::checkWon(State &state, State::Player wanted, int current, vector<
 
     if (!neighbours.empty()) {
         for (vector<int>::iterator j = neighbours.begin(); j != neighbours.end(); j++) {
-            visited[*j] = true;
             return checkWon(state, wanted, *j, visited);
         }
     } else {

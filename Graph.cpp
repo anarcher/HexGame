@@ -99,8 +99,8 @@ int Graph::get_parent(int vertex) {
     return prop[vertex].parent;
 }
 
-vector<int> Graph::get_edges(int i) {
-    return edgeList[i];
+vector<int>* Graph::get_edges(int i) {
+    return &edgeList[i];
 }
 
 /* Sets the parent of a given vertex */
