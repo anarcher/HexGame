@@ -99,8 +99,8 @@ int Graph::get_parent(int vertex) {
     return prop[vertex].parent;
 }
 
-Graph::EdList Graph::get_edges(int i) {
-    return adj[i];
+vector<int> Graph::get_edges(int i) {
+    return edgeList[i];
 }
 
 /* Sets the parent of a given vertex */
@@ -293,6 +293,16 @@ void Graph::print_adj_list() {
             cout << j->dest << ", ";
         }
         cout << endl;
+    }
+}
+
+void Graph::set_edge_list() {
+    edgeList.resize(adj.size()+1);
+    for (AdjMap::iterator i = adj.begin(); i != adj.end(); i++) {
+        edgeList[i->first].resize(i->second.size()+1);
+        for (Graph::EdList::iterator j = i->second.begin(); j != i->second.end(); ++j) {
+            edgeList[i->first].push_back(j->dest);
+        }
     }
 }
 

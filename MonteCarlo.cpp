@@ -9,7 +9,6 @@
 #include <ctime>
 #include <cstdlib>
 #include <algorithm>
-#include <ctime>
 
 using namespace std;
 
@@ -24,6 +23,7 @@ int MonteCarlo::getBestMove() {
     int bestResult = 0;
     int bestMove = 0;
     clock_t begin = clock();
+    srand(time(NULL));
 
     for (int i = 1; i <= (SIZE * SIZE); i++) {
         State S = HB->getState();
@@ -50,7 +50,6 @@ int MonteCarlo::numberOfWins(State &S) {
 
     int result = 0;
     for (int i = 0; i < NUMGAMES; i++) {
-        srand(time(NULL));
         result += GameResult(S, State::COMPUTER);
     }
     return result;

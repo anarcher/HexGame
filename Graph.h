@@ -28,20 +28,6 @@ public:
         FIRST, RED, GREEN, BLUE, LAST
     };
 
-    // An edge has a target, its weight and optionally a colour.
-
-    struct edge {
-        int dest;
-        double weight;
-        Colour c;
-
-        edge(int dest, double weight, Colour c = RED)
-        : dest(dest), weight(weight), c(c) {
-        }
-    };
-    typedef std::list<edge> EdList;
-
-
     Graph() {
         // default constructor that does not do anything
     };
@@ -55,6 +41,7 @@ public:
     void set_all_vertex(double dist = INF, int parent = NIL);
     void set_dist(int vertex, double dist);
     void set_parent(int vertex, int parent);
+    void set_edge_list();
 
     void build_random_graph(int size, int distance, double density);
     void erase();
@@ -64,7 +51,7 @@ public:
     int get_parent(int vertex);
     int get_vertex_count();
     int get_edge_count();
-    EdList get_edges(int i);
+    std::vector<int> get_edges(int i);
     bool edge_exists(int source, int dest);
 
     void dijkstra_run(int source);
@@ -81,6 +68,17 @@ public:
 
     PDeque make_queue();
 private:
+    // An edge has a target, its weight and optionally a colour.
+
+    struct edge {
+        int dest;
+        double weight;
+        Colour c;
+
+        edge(int dest, double weight, Colour c = RED)
+        : dest(dest), weight(weight), c(c) {
+        }
+    };
 
     // Node Properties like estimated distance and parent
 
@@ -90,9 +88,6 @@ private:
         bool inTree; // needed for Prim's only
     } property;
 
-
-    static const std::string clabel[5];
-protected:
     // Comparator for pairs
 
     struct Pcomp {
@@ -102,9 +97,12 @@ protected:
         }
     };
 
+    typedef std::list<edge> EdList;
     typedef std::map<int, EdList > AdjMap;
     typedef std::map<int, property> PropMap;
 
+    std::vector<std::vector<int> > edgeList;
+    static const std::string clabel[5];
     AdjMap adj;
     PropMap prop;
 };

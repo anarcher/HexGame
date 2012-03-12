@@ -26,6 +26,7 @@ HexBoard::HexBoard() {
         }
     }
     S.setTurns(0);
+    G.set_edge_list();
     Player = State::HUMAN;
 }
 
@@ -142,10 +143,10 @@ void HexBoard::playComputer() {
 std::vector<int> HexBoard::getNeighboursOf(int i, State &state, State::Player wanted, vector<bool> &visited) {
 
     vector<int> edgeVector;
-    Graph::EdList temp = G.get_edges(i);
-    for (Graph::EdList::iterator it = temp.begin(); it != temp.end(); it++) {
-        if (state.get_hex_colour(it->dest) == wanted && visited[it->dest] == false) {
-            edgeVector.push_back(it->dest);
+    vector<int> temp = G.get_edges(i);
+    for (vector<int>::iterator it = temp.begin(); it != temp.end(); it++) {
+        if (state.get_hex_colour(*it) == wanted && visited[*it] == false) {
+            edgeVector.push_back(*it);
         }
     }
 
