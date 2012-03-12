@@ -33,7 +33,7 @@ int main() {
     while (true) {
 
         // Check if there's a winner and deal with it.
-        won = HB.hasWon2();
+        won = HB.hasWon();
         if (won == State::HUMAN) {
             cout << "You have won.\n Play again? (y/n)" << endl;
             cin >> yn;

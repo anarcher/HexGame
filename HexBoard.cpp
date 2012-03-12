@@ -29,7 +29,7 @@ HexBoard::HexBoard() {
     Player = State::HUMAN;
 }
 
-HexBoard::HexBoard(HexGraph &G, State S, int turns) {
+HexBoard::HexBoard(Graph &G, State S, int turns) {
     this->G = G;
     this->S = S;
     this->S.setTurns(turns);
@@ -139,10 +139,6 @@ void HexBoard::playComputer() {
     S.set_hex_colour(move, State::COMPUTER);
 }
 
-State::Player HexBoard::hasWon() {
-    return hasWon(S);
-}
-
 std::vector<int> HexBoard::getNeighboursOf(int i, State &state, State::Player wanted, vector<bool> &visited) {
 
     vector<int> edgeVector;
@@ -184,11 +180,11 @@ bool HexBoard::checkWon(State &state, State::Player wanted, int current, vector<
     }
 }
 
-State::Player HexBoard::hasWon2() {
-    return hasWon2(S);
+State::Player HexBoard::hasWon() {
+    return hasWon(S);
 }
 
-State::Player HexBoard::hasWon2(State &state) {
+State::Player HexBoard::hasWon(State &state) {
     if (state.getTurns() >= SIZE * 2) {
         std::vector<bool> visited((SIZE * SIZE) + 1, false);
 
@@ -202,40 +198,6 @@ State::Player HexBoard::hasWon2(State &state) {
         /* CHECK COMPUTER */
         if (checkWon(state, State::COMPUTER, 1, visited2)) {
             return State::COMPUTER;
-        }
-    }
-    return State::BLANK;
-}
-
-/* Returns the winner, or blank when there is no winner */
-State::Player HexBoard::hasWon(State &state) {
-
-    // If there haven't been 11 turns EACH, then there's no need to look
-    if (state.getTurns() >= SIZE * 2) {
-
-        // Check if HUMAN has won (Top to Bottom)
-        for (int i = 1; i <= SIZE; i++) {
-            if (state.get_hex_colour(i) == State::HUMAN) {
-                G.dijkstra_run(i, State::HUMAN, state);
-                for (int j = getNode(SIZE, 1); j <= getNode(SIZE, SIZE); j++) {
-                    if (G.get_parent(j) != NIL) {
-                        return State::HUMAN;
-                    }
-                }
-            }
-        }
-
-        // Check if COMPUTER has won (Left to Right)
-        int k = 1;
-        for (int i = 1; i <= (SIZE * SIZE) - (SIZE - 1); i = getNode(++k, 1)) {
-            if (state.get_hex_colour(i) == State::COMPUTER) {
-                G.dijkstra_run(i, State::COMPUTER, state);
-                for (int j = getNode(1, SIZE); j <= getNode(SIZE, SIZE); j = getNode(getRow(j) + 1, SIZE)) {
-                    if (G.get_parent(j) != NIL) {
-                        return State::COMPUTER;
-                    }
-                }
-            }
         }
     }
     return State::BLANK;

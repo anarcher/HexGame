@@ -9,13 +9,13 @@
 
 /* Sets the colour of a given vertex. */
 void State::set_hex_colour(int vertex, Player c) {
-    piece.at(vertex) = c;
+    piece[vertex] = c;
     turns++;
 }
 
 /* Gets the colour of a given vertex. */
 State::Player State::get_hex_colour(int vertex) {
-    return piece.at(vertex);
+    return piece[vertex];
 }
 
 void State::setTurns(int turns) {
@@ -32,9 +32,7 @@ std::vector<int> State::getMoves() {
 }
 
 void State::removeMove(int i) {
-
     moves.erase(moves.begin() + i);
-
 }
 
 int State::getNextMove() {
@@ -44,13 +42,11 @@ int State::getNextMove() {
 }
 
 void State::fillMoves() {
-
     for (int i = 1; i <= (11 * 11); i++) {
         if (get_hex_colour(i) == State::BLANK) {
-            moves.push_back(i); //logical error why starts at 3?? should start at 2! (if human begins with (1, 1))
+            moves.push_back(i);
         }
     }
-
 }
 
 int State::getSize() {

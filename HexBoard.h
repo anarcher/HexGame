@@ -7,7 +7,8 @@
 
 #ifndef HEXBOARD_H
 #define	HEXBOARD_H
-#include "HexGraph.h"
+#include "Graph.h"
+#include "State.h"
 
 const int SIZE = 11;
 
@@ -16,7 +17,7 @@ public:
 
     HexBoard();
 
-    HexBoard(HexGraph &G, State S, int turns);
+    HexBoard(Graph &G, State S, int turns);
     void print();
     void putPiece(int x, int y);
     void reset();
@@ -30,14 +31,10 @@ public:
     void playComputer();
 
     State::Player hasWon();
-    State::Player hasWon(State &S);
-
-
-    State::Player hasWon2();
-    State::Player hasWon2(State &state);
+    State::Player hasWon(State &state);
 private:
     State S;
-    HexGraph G;
+    Graph G;
     State::Player Player;
 
     static inline int getNode(int row, int col);

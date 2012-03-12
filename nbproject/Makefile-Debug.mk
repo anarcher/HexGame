@@ -36,7 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/State.o \
 	${OBJECTDIR}/Graph.o \
-	${OBJECTDIR}/HexGraph.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/NegaMax.o \
 	${OBJECTDIR}/HexBoard.o \
@@ -76,11 +75,6 @@ ${OBJECTDIR}/Graph.o: Graph.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Graph.o Graph.cpp
-
-${OBJECTDIR}/HexGraph.o: HexGraph.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/HexGraph.o HexGraph.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
