@@ -9,7 +9,7 @@
 #define MONTECARLO_H_
 #include "HexBoard.h"
 
-static const int NUMGAMES = 1000;
+static const int NUMGAMES = 1;
 
 class MonteCarlo {
 public:

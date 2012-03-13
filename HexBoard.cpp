@@ -156,16 +156,20 @@ std::vector<int> HexBoard::getNeighboursOf(int i, State &state, State::Player wa
 /**
  *
  */
-bool HexBoard::checkWon(State &state, State::Player wanted, int current, vector<bool> &visited) {
+void HexBoard::checkWon(State &state, State::Player wanted, int current, vector<bool> &visited, bool &won) {
 
     if (wanted == State::COMPUTER) {
         if (getCol(current) == SIZE) {
-            return true;
+            won = true;
         }
     } else {
         if (getRow(current) == SIZE) {
-            return true;
+            won = true;
         }
+    }
+
+    if (visited[current]) {
+        return;
     }
 
     visited[current] = true;
@@ -173,10 +177,10 @@ bool HexBoard::checkWon(State &state, State::Player wanted, int current, vector<
 
     if (!neighbours.empty()) {
         for (vector<int>::iterator j = neighbours.begin(); j != neighbours.end(); j++) {
-            return checkWon(state, wanted, *j, visited);
+            return checkWon(state, wanted, *j, visited, won);
         }
     } else {
-        return false;
+        return;
     }
 }
 
@@ -189,15 +193,25 @@ State::Player HexBoard::hasWon(State &state) {
         std::vector<bool> visited((SIZE * SIZE) + 1, false);
 
         /* CHECK HUMAN */
-        if (this->checkWon(state, State::HUMAN, 1, visited)) {
-            return State::HUMAN;
+        for (int i = 1; i <= SIZE; i++) {
+            if (state.get_hex_colour(i) == State::HUMAN) {
+                bool win = false;
+                checkWon(state, State::HUMAN, 1, visited, win);
+                if (win) {
+                    return State::HUMAN;
+                }
+            }
         }
-
         std::vector<bool> visited2((SIZE * SIZE) + 1, false); // faster than resetting the other vector
-
-        /* CHECK COMPUTER */
-        if (checkWon(state, State::COMPUTER, 1, visited2)) {
-            return State::COMPUTER;
+        for (int i = 1; i <= (SIZE * SIZE) - SIZE; i += SIZE) {
+            /* CHECK COMPUTER */
+            if (state.get_hex_colour(i) == State::COMPUTER) {
+                bool win = false;
+                checkWon(state, State::COMPUTER, 1, visited, win);
+                if (win) {
+                    return State::COMPUTER;
+                }
+            }
         }
     }
     return State::BLANK;

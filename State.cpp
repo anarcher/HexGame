@@ -7,7 +7,7 @@
 
 #include "State.h"
 #include <algorithm>
-
+using namespace std;
 
 /* Sets the colour of a given vertex. */
 void State::set_hex_colour(int vertex, Player c) {
@@ -59,30 +59,46 @@ bool State::movesEmpty() {
     return moves.empty();
 }
 
-void State::print() {
-    std::cout << " \n\n\n ";
+/* Returns the column coordinate of a given internal node number */
+int getCol(int x) {
+    return (x % 11 == 0 ? 11 : x % 11);
+}
 
+/* Returns the row coordinate of a given internal node number */
+int getRow(int x) {
+    return ((x - 1) / 11) + 1;
+}
+
+
+void State::print() {
+// Print the top numbers
+    cout << "  ";
+    for (int i = 1; i <= 11; i++) {
+        cout << i << "  ";
+    }
+    cout << endl << "1 ";
 
     // Print the Board
-    for (int i = 1; i <= 11; i++) {
-        for (int y = 1; y <= 11; y++) {
-            switch (get_hex_colour((i) + (y - 1)*11)) {
-                case State::BLANK:
-                    std::cout << " E ";
-                    break;
-                case State::HUMAN:
-                    std::cout << " B ";
-                    break;
-                case State::COMPUTER:
-                    std::cout << " W ";
-                    break;
-            }
+    for (int i = 1; i <= (11 * 11); i++) {
+        switch (get_hex_colour(i)) {
+            case State::BLANK:
+                cout << " E ";
+                break;
+            case State::HUMAN:
+                cout << " B ";
+                break;
+            case State::COMPUTER:
+                cout << " W ";
+                break;
         }
-        std::cout << "\n " << std::endl;
+         if (getCol(i) == 11 && getRow(i) != 11) {
+            cout << "\n" << getRow(i + 1);
+            cout.width(getRow(i) + 4);
+        }
     }
+    cout << endl;
     std::cout << "------------------------------" << std::endl;
 
 
 }
-
 

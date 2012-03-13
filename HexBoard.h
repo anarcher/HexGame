@@ -43,7 +43,7 @@ private:
 
     void switchPlayer();
     std::vector<int> getNeighboursOf(int i, State &state, State::Player wanted, std::vector<bool> &visited);
-    bool checkWon(State &state, State::Player wanted, int current, std::vector<bool> &visited);
+    void checkWon(State &state, State::Player wanted, int current, std::vector<bool> &visited, bool &won);
 
 };
 
