@@ -117,7 +117,7 @@ State HexBoard::getState() {
     return S;
 }
 
-/* Plays a the MonteCarlo AI's next turn at the given leve of difficulty */
+/* Plays a the MonteCarlo AI's next turn at the given level of difficulty */
 void HexBoard::playComputer(int level) {
     MonteCarlo MC(this);
     MC.setLevel(level);
@@ -193,10 +193,10 @@ State::Player HexBoard::hasWon(State &state) {
         }
 
         std::vector<bool> visited2((SIZE * SIZE) + 1, false); // faster than resetting the other vector
-        
+
+        /* CHECK COMPUTER */
         int k = 1;
         for (int i = 1; i <= (SIZE * SIZE) - (SIZE - 1); i = getNode(++k, 1)) {
-            /* CHECK COMPUTER */
             if (state.get_hex_colour(i) == State::COMPUTER) {
                 bool win = false;
                 checkWon(state, State::COMPUTER, i, visited, win);

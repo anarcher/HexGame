@@ -7,14 +7,13 @@
 
 #ifndef STATE_H
 #define	STATE_H
-#include <map>
 #include <vector>
 #include <iostream>
 
 class State {
 public:
 
-    State() : turns(0) {
+    State() {
         piece.resize(122);
     };
 
