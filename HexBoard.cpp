@@ -107,39 +107,24 @@ void HexBoard::reset() {
     S.setTurns(0);
 }
 
-/* Returns true if the game has finished */
-bool HexBoard::isFinished() {
-    return (hasWon() != State::BLANK);
-}
-
-/* Returns a new Board with the specified move played. */
-HexBoard HexBoard::makemove(int move) {
-    HexBoard HB(this->G, this->S, this->S.getTurns() + 1);
-    HB.S.set_hex_colour(move, Player);
-    HB.switchPlayer();
-    return HB;
-}
-
-/* Returns a vector of all possible moves. */
-vector<int> HexBoard::getMoves() {
-    return S.getMoves();
-}
-
 /* Switches the current player. */
 void HexBoard::switchPlayer() {
     Player = (Player == State::HUMAN ? State::COMPUTER : State::HUMAN);
 }
 
+/* Returns the current board state */
 State HexBoard::getState() {
     return S;
 }
 
+/* Plays a the MonteCarlo AI's next turn */
 void HexBoard::playComputer() {
     MonteCarlo MC(this);
     int move = MC.getBestMove();
     S.set_hex_colour(move, State::COMPUTER);
 }
 
+/* Returns all the neighbour pieces of a given given wanted piece */
 std::vector<int> HexBoard::getNeighboursOf(int i, State &state, State::Player wanted, vector<bool> &visited) {
 
     vector<int> edgeVector;
@@ -154,7 +139,8 @@ std::vector<int> HexBoard::getNeighboursOf(int i, State &state, State::Player wa
 }
 
 /**
- *
+ * Recursively tries to find a winner on the current state.
+ * the boolean won will be true if the wanted player has won un the state
  */
 void HexBoard::checkWon(State &state, State::Player wanted, int current, vector<bool> &visited, bool &won) {
 
@@ -184,10 +170,12 @@ void HexBoard::checkWon(State &state, State::Player wanted, int current, vector<
     }
 }
 
+/* Overloaded hasWon() for the current board state */
 State::Player HexBoard::hasWon() {
     return hasWon(S);
 }
 
+/* Returns the winner of a given state */
 State::Player HexBoard::hasWon(State &state) {
     if (state.getTurns() >= SIZE * 2) {
         std::vector<bool> visited((SIZE * SIZE) + 1, false);

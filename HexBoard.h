@@ -16,19 +16,15 @@ class HexBoard {
 public:
 
     HexBoard();
-
     HexBoard(Graph &G, State S, int turns);
+
     void print();
     void putPiece(int x, int y);
     void reset();
     void playNext();
-
-    bool isFinished();
-    HexBoard makemove(int move);
-    std::vector<int> getMoves();
+    void playComputer();
 
     State getState();
-    void playComputer();
 
     State::Player hasWon();
     State::Player hasWon(State &state);

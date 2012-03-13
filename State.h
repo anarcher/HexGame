@@ -28,14 +28,9 @@ public:
     void setTurns(int turns);
     int getTurns();
 
-    void print();
-
-    std::vector<int> getMoves();
-    void removeMove(int i);
     void fillMoves();
     bool movesEmpty();
     void shuffleMoves();
-
     int getNextMove();
 
 private:

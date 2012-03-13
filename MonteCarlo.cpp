@@ -11,19 +11,24 @@
 
 using namespace std;
 
+/*
+ * Calculates milliseconds elapsed between two clock_t instances.
+ */
 double diffclock(clock_t clock1, clock_t clock2) {
     double diffticks = clock1 - clock2;
     double diffms = (diffticks * 1000) / CLOCKS_PER_SEC;
     return diffms;
 }
 
+/* Returns the best move as integer on the board 
+ */
 int MonteCarlo::getBestMove() {
 
     int bestResult = 0;
     int bestMove = 0;
-    clock_t begin = clock();
     srand(time(NULL));
 
+    //clock_t begin = clock();
     for (int i = 1; i <= (SIZE * SIZE); i++) {
         State S = HB->getState();
         if (S.get_hex_colour(i) == State::BLANK) {
@@ -35,28 +40,28 @@ int MonteCarlo::getBestMove() {
                 bestMove = i;
             }
         }
-        //cout << "ai games played for candidate-move " << i << "..." << endl;
     }
-    clock_t end = clock();
+    //clock_t end = clock();
+    //cout << "Time elapsed: " << double(diffclock(end, begin)) << " ms" << endl;
 
-    cout << "Time elapsed: " << double(diffclock(end, begin)) << " ms" << endl;
-    std::cout << "bestMove is:" << bestMove << endl;
     return bestMove;
 }
 
-/* Returns the result of number of games won. */
+/* Returns the number of games won from a given state. */
 int MonteCarlo::numberOfWins(State S) {
 
     int result = 0;
     S.fillMoves();
 
     for (int i = 0; i < NUMGAMES; i++) {
-        result += GameResult(S, State::COMPUTER);
+        result += GameResult(S, State::HUMAN);
     }
     return result;
 
 }
 
+/* Simulates NUMGAMES games on a given state for a given beginning player. 
+ */
 int MonteCarlo::GameResult(State S, State::Player player) {
 
     S.shuffleMoves();

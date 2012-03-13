@@ -2,14 +2,14 @@
  * MonteCarlo.h
  *
  *  Created on: Mar 8, 2012
- *      Author: jonathanbibas
+ *      Author: Jonathan Bibas
  */
 
 #ifndef MONTECARLO_H_
 #define MONTECARLO_H_
 #include "HexBoard.h"
 
-static const int NUMGAMES = 10000;
+static const int NUMGAMES = 1000;
 
 class MonteCarlo {
 public:

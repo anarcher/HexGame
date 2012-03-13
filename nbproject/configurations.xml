@@ -7,7 +7,6 @@
       <itemPath>Graph.h</itemPath>
       <itemPath>HexBoard.h</itemPath>
       <itemPath>MonteCarlo.h</itemPath>
-      <itemPath>NegaMax.h</itemPath>
       <itemPath>State.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -20,7 +19,6 @@
       <itemPath>Graph.cpp</itemPath>
       <itemPath>HexBoard.cpp</itemPath>
       <itemPath>MonteCarlo.cpp</itemPath>
-      <itemPath>NegaMax.cpp</itemPath>
       <itemPath>State.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
