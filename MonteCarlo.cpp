@@ -70,24 +70,9 @@ int MonteCarlo::GameResult(State S, State::Player player) {
     State::Player winner = HB->hasWon(S);
 
     if (winner == State::COMPUTER) {
-        cout << "COMPUTER has won! Here's the board: " << endl;
         return 1;
     } else if (winner == State::HUMAN) {
-        cout << "HUMAN has won! Here's the board: " << endl;
         return 0;
-    } else {
-        cout << "No one has won! Here's the board: " << endl;
-        S.print();
-        int black = 0, white = 0;
-        for (int i = 1; i <= (SIZE * SIZE); i++) {
-            if (S.get_hex_colour(i) == State::COMPUTER) {
-                white++;
-            } else if (S.get_hex_colour(i) == State::HUMAN) {
-                black++;
-            }
-        }
-        cout << "There are " << white << " white and " << black << " Black" << endl;
     }
-
 }
 
