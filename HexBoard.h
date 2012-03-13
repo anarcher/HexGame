@@ -22,7 +22,7 @@ public:
     void putPiece(int x, int y);
     void reset();
     void playNext();
-    void playComputer();
+    void playComputer(int level);
 
     State getState();
 

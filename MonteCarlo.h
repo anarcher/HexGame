@@ -9,7 +9,6 @@
 #define MONTECARLO_H_
 #include "HexBoard.h"
 
-static const int NUMGAMES = 1000;
 
 class MonteCarlo {
 public:
@@ -17,9 +16,11 @@ public:
     MonteCarlo(HexBoard *HB) : HB(HB) {
     };
     int getBestMove();
+    void setLevel(int i);
 private:
     int GameResult(State S, State::Player player);
     int numberOfWins(State S);
+    int NUMGAMES;
     HexBoard *HB;
 };
 

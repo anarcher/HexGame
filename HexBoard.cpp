@@ -117,9 +117,10 @@ State HexBoard::getState() {
     return S;
 }
 
-/* Plays a the MonteCarlo AI's next turn */
-void HexBoard::playComputer() {
+/* Plays a the MonteCarlo AI's next turn at the given leve of difficulty */
+void HexBoard::playComputer(int level) {
     MonteCarlo MC(this);
+    MC.setLevel(level);
     int move = MC.getBestMove();
     S.set_hex_colour(move, State::COMPUTER);
 }

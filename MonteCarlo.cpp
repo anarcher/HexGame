@@ -20,6 +20,10 @@ double diffclock(clock_t clock1, clock_t clock2) {
     return diffms;
 }
 
+/* Sets the level of difficulty of the AI */
+void MonteCarlo::setLevel(int i){
+	NUMGAMES = i;
+}
 /* Returns the best move as integer on the board 
  */
 int MonteCarlo::getBestMove() {
@@ -52,7 +56,6 @@ int MonteCarlo::numberOfWins(State S) {
 
     int result = 0;
     S.fillMoves();
-
     for (int i = 0; i < NUMGAMES; i++) {
         result += GameResult(S, State::HUMAN);
     }
