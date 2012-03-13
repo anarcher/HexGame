@@ -24,7 +24,7 @@ int MonteCarlo::getBestMove() {
     clock_t begin = clock();
     srand(time(NULL));
 
-    for (int i = 1; i <= 1; i++) {
+    for (int i = 1; i <= (SIZE * SIZE); i++) {
         State S = HB->getState();
         if (S.get_hex_colour(i) == State::BLANK) {
             S.set_hex_colour(i, State::COMPUTER);
@@ -70,8 +70,10 @@ int MonteCarlo::GameResult(State S, State::Player player) {
     State::Player winner = HB->hasWon(S);
 
     if (winner == State::COMPUTER) {
+        cout << "COMPUTER has won! Here's the board: " << endl;
         return 1;
     } else if (winner == State::HUMAN) {
+        cout << "HUMAN has won! Here's the board: " << endl;
         return 0;
     } else {
         cout << "No one has won! Here's the board: " << endl;
